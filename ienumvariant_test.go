@@ -92,13 +92,11 @@ func TestIEnumVariant_wmi(t *testing.T) {
 		t.FailNow()
 	}
 
-	var tmp_dispatch *IDispatch
-
 	for tmp, length, err := enum.Next(1); length > 0; tmp, length, err = enum.Next(1) {
 		if err != nil {
 			t.Errorf("Next() returned with %v", err)
 		}
-		tmp_dispatch = tmp.ToIDispatch()
+		tmp_dispatch := tmp.ToIDispatch()
 		defer tmp_dispatch.Release()
 
 		displayID, err = GetSingleIDOfName(tmp_dispatch, "Properties_")
